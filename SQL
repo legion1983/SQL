@@ -1,0 +1,49 @@
+CREATE TABLE IF NOT EXISTS MusicCategory (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(60) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Singer (
+	id SERIAL PRIMARY KEY,
+	album VARCHAR(60) NOT NULL,
+	name VARCHAR(40) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS MusicCategorySinger (
+	MusicCategory_id INTEGER REFERENCES MusicCategory(id),
+	Singer_id INTEGER REFERENCES Singer(id),
+	CONSTRAINT MS PRIMARY KEY (MusicCategory_id, Singer_id)
+);
+
+CREATE TABLE IF NOT EXISTS Album (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(60) NOT NULL,
+	track VARCHAR(60) NOT NULL,
+	year_when_appeared VARCHAR(60) NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS AlbumSinger (
+	Album_id INTEGER REFERENCES Album(id),
+	Singer_id INTEGER REFERENCES Singer(id),
+	CONSTRAINT SA PRIMARY KEY (Album_id, Singer_id)
+);
+
+CREATE TABLE IF NOT EXISTS Track (
+	id SERIAL PRIMARY KEY REFERENCES Album(id),
+	name VARCHAR(40) NOT NULL,
+	play_time VARCHAR(40) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Sbornik (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(40) NOT NULL,
+	year VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS SbornikAlbumTrack (
+	Album_id INTEGER REFERENCES Album(id),
+	Track_id INTEGER REFERENCES Track(id),
+	Sbornik_id INTEGER REFERENCES Sbornik(id),
+	CONSTRAINT SAT PRIMARY KEY (Album_id, Track_id, Sbornik_id)
+);
