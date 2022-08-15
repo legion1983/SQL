@@ -41,9 +41,8 @@ CREATE TABLE IF NOT EXISTS Sbornik (
 	year VARCHAR(10) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS SbornikAlbumTrack (
-	Album_id INTEGER REFERENCES Album(id),
+CREATE TABLE IF NOT EXISTS SbornikTrack (
 	Track_id INTEGER REFERENCES Track(id),
 	Sbornik_id INTEGER REFERENCES Sbornik(id),
-	CONSTRAINT SAT PRIMARY KEY (Album_id, Track_id, Sbornik_id)
+	CONSTRAINT SAT PRIMARY KEY (Track_id, Sbornik_id)
 );
