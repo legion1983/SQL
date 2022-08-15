@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS Album (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(60) NOT NULL,
 	track VARCHAR(60) NOT NULL,
-	year_when_appeared ingeter NOT NULL
+	year_when_appeared INT NOT NULL
 );
 
 
@@ -32,13 +32,13 @@ CREATE TABLE IF NOT EXISTS AlbumSinger (
 CREATE TABLE IF NOT EXISTS Track (
 	id SERIAL PRIMARY KEY REFERENCES Album(id),
 	name VARCHAR(40) NOT NULL,
-	play_time ingeter NOT NULL
+	play_time INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Sbornik (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(40) NOT NULL,
-	year ingeter NOT NULL
+	year INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS SbornikTrack (
