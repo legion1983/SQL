@@ -17,9 +17,9 @@ CREATE TABLE IF NOT EXISTS MusicCategorySinger (
 
 CREATE TABLE IF NOT EXISTS Album (
 	id SERIAL PRIMARY KEY,
-	name VARCHAR(60) NOT NULL,
+	name VARCHAR(60) UNIQUE,
 	track VARCHAR(60) NOT NULL,
-	year_when_appeared INT NOT NULL
+	year_when_appeared INT CHECK(year >0 AND year < 2500)
 );
 
 
@@ -31,14 +31,14 @@ CREATE TABLE IF NOT EXISTS AlbumSinger (
 
 CREATE TABLE IF NOT EXISTS Track (
 	id SERIAL PRIMARY KEY REFERENCES Album(id),
-	name VARCHAR(40) NOT NULL,
-	play_time INT NOT NULL
+	name VARCHAR(40) UNIQUE,
+	play_time CHECK(play_time >0 AND play_time < 500)
 );
 
 CREATE TABLE IF NOT EXISTS Sbornik (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(40) NOT NULL,
-	year INT NOT NULL
+	year INT CHECK(year >0 AND year < 2500)
 );
 
 CREATE TABLE IF NOT EXISTS SbornikTrack (
