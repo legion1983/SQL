@@ -1,47 +1,50 @@
-
 CREATE TABLE IF NOT EXISTS MusicCategory (
-	id SERIAL PRIMARY KEY,
-	name VARCHAR(60) NOT NULL
+	MusicCategory_id SERIAL PRIMARY KEY,
+	name VARCHAR(60) NOT NULL,
+	description VARCHAR(60) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Singer (
-	id SERIAL PRIMARY KEY,
-	album VARCHAR(60) NOT NULL,
+	Singer_id SERIAL PRIMARY KEY,
 	name VARCHAR(40) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS MusicCategorySinger (
-	MusicCategory_id INTEGER REFERENCES MusicCategory(id),
-	Singer_id INTEGER REFERENCES Singer(id),
+	MusicCategory_id INTEGER REFERENCES MusicCategory(MusicCategory_id),
+	Singer_id INTEGER REFERENCES Singer(Singer_id),
 	CONSTRAINT MS PRIMARY KEY (MusicCategory_id, Singer_id)
 );
 
 CREATE TABLE IF NOT EXISTS Album (
-	id SERIAL PRIMARY KEY,
-	name VARCHAR(60) UNIQUE,
-	track VARCHAR(60) NOT NULL,
-	year_when_appeared INTEGER CHECK(year_when_appeared >0)
+	Album_id SERIAL PRIMARY KEY,
+	name VARCHAR(60) NOT NULL,
+	year_when_appeared INTEGER NOT NULL
 );
 
+
 CREATE TABLE IF NOT EXISTS AlbumSinger (
-	Album_id INTEGER REFERENCES Album(id),
-	Singer_id INTEGER REFERENCES Singer(id),
+	Album_id INTEGER REFERENCES Album(Album_id),
+	Singer_id INTEGER REFERENCES Singer(Singer_id),
 	CONSTRAINT SA PRIMARY KEY (Album_id, Singer_id)
 );
 
 CREATE TABLE IF NOT EXISTS Track (
-	id SERIAL PRIMARY KEY REFERENCES Album(id),
-	name VARCHAR(40) UNIQUE,
-	play_time INTEGER CHECK(play_time >0)
-);
-CREATE TABLE IF NOT EXISTS Sbornik (
-	id SERIAL PRIMARY KEY,
+	Track_id SERIAL PRIMARY KEY,
 	name VARCHAR(40) NOT NULL,
-	year INTEGER CHECK(year >0)
+	play_time INTEGER NOT NULL,
+	album_id INTEGER REFERENCES Album(Album_id)
+);
+
+CREATE TABLE IF NOT EXISTS Sbornik (
+	Sbornik_id SERIAL PRIMARY KEY REFERENCES Track(Track_id),
+	name VARCHAR(40) NOT NULL,
+	year INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS SbornikTrack (
-	Track_id INTEGER REFERENCES Track(id),
-	Sbornik_id INTEGER REFERENCES Sbornik(id),
-	CONSTRAINT SAT PRIMARY KEY (Track_id, Sbornik_id)
+	Sbornik_id INTEGER REFERENCES Sbornik(Sbornik_id),
+	Track_id INTEGER REFERENCES Track(Track_id),
+	CONSTRAINT SAT PRIMARY KEY (Sbornik_id, Track_id)
 );
+
+
